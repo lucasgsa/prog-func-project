@@ -24,4 +24,4 @@ function compose<Args extends unknown[], R1, R2>(func1: (arg: R2) => R1, func2: 
     return (...args: Args) => func1(func2(...args));
 }
 
-console.log('oi');
+exports.distinct = distinct;
