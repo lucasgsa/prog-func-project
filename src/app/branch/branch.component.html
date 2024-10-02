@@ -4,21 +4,21 @@
     <thead class="thead-light">
       <tr>
         <th>
-          <label for="branchNameFilter">Filtrar por name:</label>
-          <input class="form-control" id="branchNameFilter" [(value)]="tableFilters.name" (input)="applyFilterByName($event)" placeholder="Name" />
+          <label for="branchNameFilter">Filtrar Branch:</label>
+          <input class="form-control" id="branchNameFilter" [(value)]="tableFilters.name" (input)="applyFilterByName($event)" placeholder="Branch" />
         </th>
 
         <th>
-          <label for="protectedFilter">Filtrar proteção:</label>
-          <select id="protectedFilter" [(value)]="tableFilters.protected" (change)="applyFilterByProtected($event)" class="form-control">
-            <option value=undefined>Todos</option>
-            <option [value]="true">Protegido</option>
-            <option [value]="false">Não Protegido</option>
+          <label for="protectedFilter">Filtrar Proteção:</label>
+          <select id="protectedFilter" [(value)]="tableFilters.protected" (change)="applyFilterByProtected($event)" class="form-select">
+            <option value=undefined>Todas</option>
+            <option [value]="true">Protegida</option> 
+            <option [value]="false">Não Protegida</option>
           </select>
         </th>
 
         <th>
-          <label for="commitShaFilter">Filtrar por Código Identificador do Commit:</label>
+          <label for="commitShaFilter">Filtrar Código Identificador do Commit:</label>
           <input class="form-control" id="commitShaFilter" [(value)]="tableFilters.commitSha" (input)="applyFilterByCommitSha($event)" placeholder="Commit SHA" />
         </th>
       </tr>
