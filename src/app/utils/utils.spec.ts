@@ -2,6 +2,10 @@ import { distinct, groupBy } from './utils';
 
 describe('Testing utils functions', () => {
 
+    describe('map', () => {
+        // TODO
+    });
+
     describe('distinct', () => {
         it('distinct with multiple values', () => {
             const data: { id: number, name: string}[] = [
@@ -76,11 +80,19 @@ describe('Testing utils functions', () => {
         });
     });
 
+    describe('filter', () => {
+        // TODO
+    });
+
     describe('fold', () => {
         // TODO
     });
 
     describe('compose', () => {
+        // TODO
+    });
+
+    describe('orderBy', () => {
         // TODO
     });
 
