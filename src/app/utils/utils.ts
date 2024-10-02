@@ -1,5 +1,3 @@
-import { pipe } from "rxjs";
-
 export function findFirst<T> ([x]: T[]) {
     return x;
 }
@@ -8,29 +6,9 @@ export function map<T, U> (mapFunc : ((arg : T) => U )) : (list: T[]) => U[] {
     return (list) => list.map(mapFunc);
 }
 
-// export function distinct<T> (attribute: keyof T) : (list: T[]) => T[] {
-//     return pipe(groupBy(attribute), Object.values, map(findFirst<T>));
-// }
-
 export function distinct<T> (attribute: keyof T) : (list: T[]) => T[] {
-    // return pipe(groupBy(attribute), Object.values, map(findFirst<T>));
     return compose(map(findFirst<T>), compose(Object.values, groupBy(attribute)));
 }
-
-// type GroupByCallback <T> = <T>(list: T[]) => { [key: string]: T[] };
-// type GroupByFunc = <T> (attribute: keyof T) => GroupByCallback<T>;
-// export const groupBy : GroupByFunc = (attribute) => {
-//     return (list) => {
-//         if (list.length === 0) return {};
-
-//         const [x, ...xs] = list;
-//         const nextValuesGroupBy = groupBy(attribute)(xs);
-//         const key = String(x[attribute]);
-//         const group = nextValuesGroupBy[key] ?? [];
-
-//         return { ...nextValuesGroupBy, [key]: [...group, x] };
-//     };
-// }
 
 export function groupBy <T> (attribute: keyof T) : (list: T[]) => { [key: string]: T[] } {
     return (list: T[]) => {
