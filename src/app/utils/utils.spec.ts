@@ -16,7 +16,7 @@ describe('Testing utils functions', () => {
                 { "name": "Idk", "id": 4 }
             ];
 
-            const result = distinct('name')(data);
+            const result = distinct ('name') (data);
 
             expect(result).toEqual(jasmine.arrayContaining([
                 { name: 'Idk', id: 4 },

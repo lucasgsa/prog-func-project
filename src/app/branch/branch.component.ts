@@ -3,7 +3,7 @@ import { BranchService } from './branch.service';
 import { CommonModule } from '@angular/common';
 import Branch from './branch.model';
 import { BranchTableRow, BranchTableRowFilter, BranchTableRowSort, BranchTableRowSortAttribute } from './table_row/branch_table_row.model';
-import { compose, filter, fold, groupBy, map, orderBy, orderByDesc, reverse } from '../utils/utils';
+import { filter, map, orderBy, orderByDesc } from '../utils/utils';
 import { FormsModule } from '@angular/forms';
 import { pipe } from 'rxjs';
 

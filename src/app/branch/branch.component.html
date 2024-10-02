@@ -64,7 +64,7 @@
             <i [ngClass]="row.protected ? 'fa fa-lock text-success' : 'fa fa-unlock text-danger'" title="{{ row.protected ? 'Protegida' : 'Não Protegida' }}"></i>
           </td>
   
-          <td>{{ row.commitSha }}</td>
+          <td class="text-center">{{ row.commitSha }}</td>
   
           <td class="text-center">
             <a [href]="row.commitUrl" target="_blank">
