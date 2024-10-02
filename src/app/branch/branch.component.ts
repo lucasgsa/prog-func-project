@@ -42,39 +42,39 @@ export class BranchComponent implements OnInit {
 
     this.tableRows = pipe(
       filter((row: BranchTableRow) => 
-        this.tableFilters.name == null 
+           this.tableFilters.name == null 
         || this.tableFilters.name.trim().length === 0 
         || row.name.toLowerCase().includes(this.tableFilters.name?.toLowerCase())),
       filter((row: BranchTableRow) => 
-        this.tableFilters.protected == null 
+           this.tableFilters.protected == null 
         || row.protected === this.tableFilters.protected),
       filter((row: BranchTableRow) => 
-        this.tableFilters.commitSha == null 
+           this.tableFilters.commitSha == null 
         || this.tableFilters.commitSha.trim().length === 0 
         || row.commitSha.toLowerCase().includes(this.tableFilters.commitSha?.toLowerCase())),
       (this.tableSorts.direction === 'ASC' ? orderBy : orderByDesc)(this.tableSorts.attribute)
     )(rows);
   }
 
-    // this.tableRows = 
-    //   compose(
-    //     (this.tableSorts.direction === 'ASC' ? orderBy : orderByDesc)(this.tableSorts.attribute),
-    //     compose(
-    //       filter((row: BranchTableRow) => 
-    //         this.tableFilters.name == null 
-    //         || this.tableFilters.name.trim().length === 0 
-    //         || row.name.toLowerCase().includes(this.tableFilters.name?.toLowerCase())),
-    //       compose(
-    //         filter((row: BranchTableRow) => 
-    //           this.tableFilters.protected == null 
-    //           || row.protected === this.tableFilters.protected),
-    //         filter((row: BranchTableRow) => 
-    //           this.tableFilters.commitSha == null 
-    //           || this.tableFilters.commitSha.trim().length === 0 
-    //           || row.commitSha.toLowerCase().includes(this.tableFilters.commitSha?.toLowerCase()))
-    //       )
-    //     )
-    //   )(rows);
+  // this.tableRows = 
+  //   compose(
+  //     (this.tableSorts.direction === 'ASC' ? orderBy : orderByDesc)(this.tableSorts.attribute),
+  //     compose(
+  //       filter((row: BranchTableRow) => 
+  //           this.tableFilters.name == null 
+  //         || this.tableFilters.name.trim().length === 0 
+  //         || row.name.toLowerCase().includes(this.tableFilters.name?.toLowerCase())),
+  //       compose(
+  //         filter((row: BranchTableRow) => 
+  //             this.tableFilters.protected == null 
+  //           || row.protected === this.tableFilters.protected),
+  //         filter((row: BranchTableRow) => 
+  //              this.tableFilters.commitSha == null 
+  //           || this.tableFilters.commitSha.trim().length === 0 
+  //           || row.commitSha.toLowerCase().includes(this.tableFilters.commitSha?.toLowerCase()))
+  //       )
+  //     )
+  //   )(rows);
 
   applySort(column: BranchTableRowSortAttribute): void {
     this.tableSorts = { attribute: column, direction: this.tableSorts?.direction === 'ASC' ? 'DESC' : 'ASC' };

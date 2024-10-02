@@ -1,68 +1,78 @@
-<div class="container mt-5">
-  <h2 class="text-center mb-4">Branches do repositório Rails</h2>
-  <table class="table table-striped table-hover table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>
-          <label for="branchNameFilter">Filtrar Branch:</label>
-          <input class="form-control" id="branchNameFilter" [(value)]="tableFilters.name" (input)="applyFilterByName($event)" placeholder="Branch" />
-        </th>
+<div class="container-fluid bg-dark vh-100 d-flex flex-column">
+  <h2 class="text-center mb-4 p-4 text-white">Branches do Repositório Rails</h2>
 
-        <th>
-          <label for="protectedFilter">Filtrar Proteção:</label>
-          <select id="protectedFilter" [(value)]="tableFilters.protected" (change)="applyFilterByProtected($event)" class="form-select">
-            <option value=undefined>Todas</option>
-            <option [value]="true">Protegida</option> 
-            <option [value]="false">Não Protegida</option>
-          </select>
-        </th>
+  <div class="table-responsive flex-grow-1">
+    <table class="table table-striped table-hover table-bordered table-dark">
+      <thead class="thead-light h-100">
+        <tr class="rounded shadow-sm">
+          <th>
+            <label for="branchNameFilter">Filtrar Branch:</label>
+            <input class="form-control" id="branchNameFilter" [(value)]="tableFilters.name" (input)="applyFilterByName($event)" placeholder="Branch" />
+          </th>
+  
+          <th>
+            <label for="protectedFilter">Filtrar Proteção:</label>
+            <select id="protectedFilter" [(value)]="tableFilters.protected" (change)="applyFilterByProtected($event)" class="form-select">
+              <option value=undefined>Todas</option>
+              <option [value]="true">Protegida</option> 
+              <option [value]="false">Não Protegida</option>
+            </select>
+          </th>
+  
+          <th>
+            <label for="commitShaFilter">Filtrar Código Identificador do Commit:</label>
+            <input class="form-control" id="commitShaFilter" [(value)]="tableFilters.commitSha" (input)="applyFilterByCommitSha($event)" placeholder="Commit SHA" />
+          </th>
+        </tr>
+  
+        <tr>
+          <th (click)="applySort('name')" class="text-center" role="button">
+            Nome
+            <span *ngIf="tableSorts.attribute === 'name'">
+              <i [ngClass]="tableSorts.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+            </span>
+          </th>
+          <th (click)="applySort('protected')" class="text-center" role="button">
+            Protegida
+            <span *ngIf="tableSorts.attribute === 'protected'">
+              <i [ngClass]="tableSorts.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+            </span>
+          </th>
+          <th (click)="applySort('commitSha')" class="text-center" role="button">
+            Código Identificador do Commit
+            <span *ngIf="tableSorts.attribute === 'commitSha'">
+              <i [ngClass]="tableSorts.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+            </span>
+          </th>
+          <th class="text-center">
+            Commit URL
+          </th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr *ngIf="tableRows.length === 0">
+          <td colspan="4" class="text-center text-white">
+            Nenhuma branch encontrada
+          </td>
+        </tr>
 
-        <th>
-          <label for="commitShaFilter">Filtrar Código Identificador do Commit:</label>
-          <input class="form-control" id="commitShaFilter" [(value)]="tableFilters.commitSha" (input)="applyFilterByCommitSha($event)" placeholder="Commit SHA" />
-        </th>
-      </tr>
-
-      <tr>
-        <th (click)="applySort('name')" class="text-center" role="button">
-          Nome
-          <span *ngIf="tableSorts.attribute === 'name'">
-            <i [ngClass]="tableSorts.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
-          </span>
-        </th>
-        <th (click)="applySort('protected')" class="text-center" role="button">
-          Protegida
-          <span *ngIf="tableSorts.attribute === 'protected'">
-            <i [ngClass]="tableSorts.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
-          </span>
-        </th>
-        <th (click)="applySort('commitSha')" class="text-center" role="button">
-          Código Identificador do Commit
-          <span *ngIf="tableSorts.attribute === 'commitSha'">
-            <i [ngClass]="tableSorts.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
-          </span>
-        </th>
-        <th class="text-center">
-          Commit URL
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of tableRows">
-        <td>{{ row.name }}</td>
-
-        <td class="text-center">
-          <i [ngClass]="row.protected ? 'fa fa-lock' : 'fa fa-unlock text-danger'"></i>
-        </td>
-
-        <td>{{ row.commitSha }}</td>
-
-        <td class="text-center">
-          <a [href]="row.commitUrl" target="_blank">
-            <i class="fa fa-link"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <tr *ngFor="let row of tableRows">
+          <td>{{ row.name }}</td>
+  
+          <td class="text-center">
+            <i [ngClass]="row.protected ? 'fa fa-lock text-success' : 'fa fa-unlock text-danger'" title="{{ row.protected ? 'Protegida' : 'Não Protegida' }}"></i>
+          </td>
+  
+          <td>{{ row.commitSha }}</td>
+  
+          <td class="text-center">
+            <a [href]="row.commitUrl" target="_blank">
+              <i class="fa fa-link"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
