@@ -48,7 +48,7 @@ export function compose<A, B, C> (func1: (b: B) => C, func2: (a: A) => B) : (a: 
 }
 
 export function orderBy<T>(attribute: keyof T) : (list: T[]) => T[] { 
-    return (list) => list.sort((b1, b2) => b1[attribute] > b2[attribute] ? 1 : -1);
+    return (list) => list.sort((b1, b2) => b1[attribute] >= b2[attribute] ? 1 : -1);
 }
 
 export function orderByDesc<T>(attribute: keyof T) : (list: T[]) => T[] { 
