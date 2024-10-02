@@ -7,7 +7,7 @@ export type BranchTableRow = {
   protected: boolean;
 };
 
-export type BranchTableRowSortAttribute = 'name' | 'protected' | 'commitSha';
+export type BranchTableRowSortAttribute = Partial<keyof BranchTableRow>;
 export type BranchTableRowSortDirection = 'ASC' | 'DESC';
 
 export type BranchTableRowSort = {

@@ -29,6 +29,12 @@ export function filter<T> (filterFunc : ((arg : T) => boolean )) : (list: T[]) =
     return fold ((acc : T[], value: T) => filterFunc(value) ? [value, ...acc] : acc) ([]);
 }
 
+// const fold = <T,S> (foldFunc : (accumulator : S, next : T) => S) => (init : S) => (list: T[]) : S => {
+//     if (list == null || list.length === 0) return init; 
+//     const [x, ...xs] = list;
+//     return fold (foldFunc) (foldFunc(init, x)) (xs);
+// }
+
 export function fold<T,S>(foldFunc : (accumulator : S, next : T) => S) : (init : S) => (list: T[]) => S {
     return (init) => (list) => {
         if (list == null || list.length === 0) return init; 
@@ -37,10 +43,18 @@ export function fold<T,S>(foldFunc : (accumulator : S, next : T) => S) : (init :
     };
 }
 
-export function compose<U, V, Y>(g: (y: Y) => U, h: (z: V) => Y): (x: V) => U {
-    return (x: V) => g(h(x));
+export function compose<A, B, C> (func1: (b: B) => C, func2: (a: A) => B) : (a: A) => C {
+    return (a: A) => func1(func2(a));
 }
 
 export function orderBy<T>(attribute: keyof T) : (list: T[]) => T[] { 
     return (list) => list.sort((b1, b2) => b1[attribute] > b2[attribute] ? 1 : -1);
+}
+
+export function orderByDesc<T>(attribute: keyof T) : (list: T[]) => T[] { 
+    return compose(reverse<T>, orderBy(attribute));
+}
+
+export function reverse<T>(list: T[]) : T[] { 
+    return [...list].reverse();
 }
