@@ -1,0 +1,71 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Branches do repositório Rails</h2>
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th>
+          <label for="branchNameFilter">Filtrar por name:</label>
+          <input class="form-control" id="branchNameFilter" [(value)]="filter.name" (input)="applyFilterByName($event)" placeholder="Name" />
+        </th>
+
+        <th>
+          <label for="protectedFilter">Filtrar proteção:</label>
+          <select id="protectedFilter" [(value)]="filter.protected" (change)="applyFilterByProtected($event)" class="form-control">
+            <option value=undefined>Todos</option>
+            <option [value]="true">Protegido</option>
+            <option [value]="false">Não Protegido</option>
+          </select>
+        </th>
+
+        <th>
+          <label for="commitShaFilter">Filtrar por Código Identificador do Commit:</label>
+          <input class="form-control" id="commitShaFilter" [(value)]="filter.commitSha" (input)="applyFilterByCommitSha($event)" placeholder="Commit SHA" />
+        </th>
+      </tr>
+
+      <tr>
+        <th (click)="applySort('name')" class="text-center">
+          Nome
+          <span *ngIf="sort?.attribute === 'name'">
+            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          </span>
+        </th>
+        <th (click)="applySort('protected')" class="text-center">
+          Protegida
+          <span *ngIf="sort?.attribute === 'protected'">
+            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          </span>
+        </th>
+        <th (click)="applySort('commitSha')" class="text-center">
+          Código Identificador do Commit
+          <span *ngIf="sort?.attribute === 'commitSha'">
+            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          </span>
+        </th>
+        <th (click)="applySort('commitUrl')" class="text-center">
+          Commit URL
+          <span *ngIf="sort?.attribute === 'commitUrl'">
+            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows">
+        <td>{{ row.name }}</td>
+
+        <td class="text-center">
+          <i [ngClass]="row.protected ? 'fa fa-lock' : 'fa fa-unlock text-danger'"></i>
+        </td>
+
+        <td>{{ row.commitSha }}</td>
+
+        <td class="text-center">
+          <a [href]="row.commitUrl" target="_blank">
+            <i class="fa fa-link"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
