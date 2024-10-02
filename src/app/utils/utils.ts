@@ -7,6 +7,7 @@ export function map<T, U> (mapFunc : ((arg : T) => U )) : (list: T[]) => U[] {
 }
 
 export function distinct<T> (attribute: keyof T) : (list: T[]) => T[] {
+    // return pipe(groupBy(attribute), Object.values, map(findFirst<T>));
     return compose(map(findFirst<T>), compose(Object.values, groupBy(attribute)));
 }
 

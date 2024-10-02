@@ -5,12 +5,12 @@
       <tr>
         <th>
           <label for="branchNameFilter">Filtrar por name:</label>
-          <input class="form-control" id="branchNameFilter" [(value)]="filter.name" (input)="applyFilterByName($event)" placeholder="Name" />
+          <input class="form-control" id="branchNameFilter" [(value)]="tableFilters.name" (input)="applyFilterByName($event)" placeholder="Name" />
         </th>
 
         <th>
           <label for="protectedFilter">Filtrar proteção:</label>
-          <select id="protectedFilter" [(value)]="filter.protected" (change)="applyFilterByProtected($event)" class="form-control">
+          <select id="protectedFilter" [(value)]="tableFilters.protected" (change)="applyFilterByProtected($event)" class="form-control">
             <option value=undefined>Todos</option>
             <option [value]="true">Protegido</option>
             <option [value]="false">Não Protegido</option>
@@ -19,27 +19,27 @@
 
         <th>
           <label for="commitShaFilter">Filtrar por Código Identificador do Commit:</label>
-          <input class="form-control" id="commitShaFilter" [(value)]="filter.commitSha" (input)="applyFilterByCommitSha($event)" placeholder="Commit SHA" />
+          <input class="form-control" id="commitShaFilter" [(value)]="tableFilters.commitSha" (input)="applyFilterByCommitSha($event)" placeholder="Commit SHA" />
         </th>
       </tr>
 
       <tr>
         <th (click)="applySort('name')" class="text-center" role="button">
           Nome
-          <span *ngIf="sort?.attribute === 'name'">
-            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          <span *ngIf="tableSorts?.attribute === 'name'">
+            <i [ngClass]="tableSorts?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
           </span>
         </th>
         <th (click)="applySort('protected')" class="text-center" role="button">
           Protegida
-          <span *ngIf="sort?.attribute === 'protected'">
-            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          <span *ngIf="tableSorts?.attribute === 'protected'">
+            <i [ngClass]="tableSorts?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
           </span>
         </th>
         <th (click)="applySort('commitSha')" class="text-center" role="button">
           Código Identificador do Commit
-          <span *ngIf="sort?.attribute === 'commitSha'">
-            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+          <span *ngIf="tableSorts?.attribute === 'commitSha'">
+            <i [ngClass]="tableSorts?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
           </span>
         </th>
         <th class="text-center">
@@ -48,7 +48,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of rows">
+      <tr *ngFor="let row of tableRows">
         <td>{{ row.name }}</td>
 
         <td class="text-center">
