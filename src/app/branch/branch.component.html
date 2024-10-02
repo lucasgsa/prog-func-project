@@ -24,29 +24,26 @@
       </tr>
 
       <tr>
-        <th (click)="applySort('name')" class="text-center">
+        <th (click)="applySort('name')" class="text-center" role="button">
           Nome
           <span *ngIf="sort?.attribute === 'name'">
             <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
           </span>
         </th>
-        <th (click)="applySort('protected')" class="text-center">
+        <th (click)="applySort('protected')" class="text-center" role="button">
           Protegida
           <span *ngIf="sort?.attribute === 'protected'">
             <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
           </span>
         </th>
-        <th (click)="applySort('commitSha')" class="text-center">
+        <th (click)="applySort('commitSha')" class="text-center" role="button">
           Código Identificador do Commit
           <span *ngIf="sort?.attribute === 'commitSha'">
             <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
           </span>
         </th>
-        <th (click)="applySort('commitUrl')" class="text-center">
+        <th class="text-center">
           Commit URL
-          <span *ngIf="sort?.attribute === 'commitUrl'">
-            <i [ngClass]="sort?.direction === 'ASC' ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
-          </span>
         </th>
       </tr>
     </thead>

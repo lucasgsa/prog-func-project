@@ -18,7 +18,7 @@ export class BranchComponent implements OnInit {
 
   branches: Branch[] = [];
   sort: BranchTableRowSort = { attribute: 'name', direction: 'ASC' };
-  filter: BranchTableRowFilter = { name: '', commitSha: '', commitUrl: ''};
+  filter: BranchTableRowFilter = { name: '', protected: undefined, commitSha: ''};
   rows: BranchTableRow[] = [];
 
   constructor(private branchService: BranchService) { }
@@ -26,14 +26,17 @@ export class BranchComponent implements OnInit {
   ngOnInit(): void {
     this.branchService.findAll().subscribe((branches: Branch[]) => {
       this.branches = branches;
-      this.rows = this.branchesToRow(branches);
+      this.renderRows();
     });
-
-    this.renderRows();
   }
 
   renderRows() {
-    const rows = this.branchesToRow(this.branches);
+    const rows = map((b: Branch) => (
+      { 
+        name: b.name, protected: b.protected, 
+        commitSha: b.commit.sha, commitUrl: b.commit.url 
+      })
+    )(this.branches);
 
     this.rows = pipe(
       filter((row: BranchTableRow) => 
@@ -79,14 +82,5 @@ export class BranchComponent implements OnInit {
     this.filter.name = input;
     this.renderRows();
   }
-
-  branchesToRow = map((b: Branch) => 
-    ({ 
-      name: b.name, 
-      protected: b.protected, 
-      commitSha: b.commit.sha, 
-      commitUrl: 
-      b.commit.url 
-    }));
 
 }

@@ -1,7 +1,13 @@
 import Branch from "../branch.model";
 
-export type BranchTableRowSortAttribute = keyof BranchTableRow;
+export type BranchTableRow = {
+  name: string;
+  commitSha: string,
+  commitUrl: string,
+  protected: boolean;
+};
 
+export type BranchTableRowSortAttribute = 'name' | 'protected' | 'commitSha';
 export type BranchTableRowSortDirection = 'ASC' | 'DESC';
 
 export type BranchTableRowSort = {
@@ -12,13 +18,6 @@ export type BranchTableRowSort = {
 export type BranchTableRowFilter = {
   name?: string | null;
   commitSha?: string,
-  commitUrl?: string
   protected?: boolean;
 }
 
-export type BranchTableRow = {
-  name: string;
-  commitSha: string,
-  commitUrl: string
-  protected: boolean;
-};
