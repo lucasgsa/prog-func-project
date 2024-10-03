@@ -8,7 +8,7 @@ import Branch from "./branch.model";
 })
 export class BranchService {
   private apiHost = 'https://api.github.com';
-  private path = '/repos/rails/rails/branches';
+  private path = '/repos/rails/rails/branches?per_page=100';
 
   constructor(private http: HttpClient) { }
 
