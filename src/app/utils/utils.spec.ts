@@ -113,7 +113,6 @@ describe('Testing utils functions', () => {
 
                 return lista;
             }; 
-
             const sum = fold((acc: number, value: number) => acc + value)(0);
 
             const somaNumerosAte = compose(sum, generateList);
