@@ -25,6 +25,23 @@ describe('Testing utils functions', () => {
             ]));
         });
 
+        it('distinct with multiple values currying', () => {
+            const data: User[] = [
+                { "name": "Alfredo", "id": 1 },
+                { "name": "José", "id": 2 },
+                { "name": "Alfredo", "id": 3 },
+                { "name": "Idk", "id": 4 }
+            ];
+
+            const result = distinct ('name') (data);
+
+            expect(result).toEqual(jasmine.arrayContaining([
+                { name: 'Idk', id: 4 },
+                { name: 'Alfredo', id: 3 },
+                { name: 'José', id: 2 }
+            ]));
+        });
+
         it('distinct with empty list', () => {
             const data: User[] = [];
             const result = distinct('name', data);
@@ -49,6 +66,23 @@ describe('Testing utils functions', () => {
             ];
 
             const result = groupBy('name' as keyof User, data);
+
+            expect(result).toEqual({
+                "Alfredo": jasmine.arrayContaining([{ "name": "Alfredo", "id": 1 }, { "name": "Alfredo", "id": 3 }]),
+                "Idk" : jasmine.arrayContaining([{ name: "Idk", id: 4 }]),
+                "José": jasmine.arrayContaining([{ name: "José", id: 2 }])
+            });
+        });
+
+        it('groupBy with multiple values currying', () => {
+            const data: User[] = [
+                { "name": "Alfredo", "id": 1 },
+                { "name": "José", "id": 2 },
+                { "name": "Alfredo", "id": 3 },
+                { "name": "Idk", "id": 4 }
+            ];
+
+            const result = groupBy ('name' as keyof User) (data);
 
             expect(result).toEqual({
                 "Alfredo": jasmine.arrayContaining([{ "name": "Alfredo", "id": 1 }, { "name": "Alfredo", "id": 3 }]),
@@ -87,6 +121,22 @@ describe('Testing utils functions', () => {
             ]));
         });
 
+        it('should filter by name currying', () => {
+            const data: User[] = [
+                { "name": "Alfredo", "id": 1 },
+                { "name": "José", "id": 2 },
+                { "name": "Alfredo", "id": 3 },
+                { "name": "Idk", "id": 4 }
+            ];
+
+            const result: User[] = filter ((user: User) => user.name === 'Alfredo') (data);
+
+            expect(result).toEqual(jasmine.arrayContaining([
+                { "name": "Alfredo", "id": 1 },
+                { "name": "Alfredo", "id": 3 },
+            ]));
+        });
+
         it('filter with empty list', () => {
             const data: User[] = [];
             const result = filter((user: User) => user.name === 'IDK', data);
@@ -98,6 +148,18 @@ describe('Testing utils functions', () => {
         it('should list all numbers in list', () => {    
             const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
             const sumResult: number = fold ((acc: number, value: number) => acc + value, 0, list);
+            expect(sumResult).toEqual(55);
+        });
+
+        it('should list all numbers in list curring 1', () => {    
+            const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const sumResult: number = fold ((acc: number, value: number) => acc + value, 0) (list);
+            expect(sumResult).toEqual(55);
+        });
+
+        it('should list all numbers in list curring 2', () => {    
+            const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const sumResult: number = fold ((acc: number, value: number) => acc + value) (0) (list);
             expect(sumResult).toEqual(55);
         });
     });
@@ -134,6 +196,24 @@ describe('Testing utils functions', () => {
             ];
 
             const result: User[] = orderBy('id' as keyof User, data);
+
+            expect(result).toEqual([
+                { "name": "Alfredo", "id": 1 },
+                { "name": "José", "id": 2 },
+                { "name": "Alfredo", "id": 3 },
+                { "name": "Idk", "id": 4 },
+            ]);
+        });
+
+        it('should order by id correctly currying', () => {
+            const data: User[] = [
+                { "name": "Idk", "id": 4 },
+                { "name": "Alfredo", "id": 1 },
+                { "name": "Alfredo", "id": 3 },
+                { "name": "José", "id": 2 },
+            ];
+
+            const result: User[] = orderBy ('id' as keyof User) (data);
 
             expect(result).toEqual([
                 { "name": "Alfredo", "id": 1 },
