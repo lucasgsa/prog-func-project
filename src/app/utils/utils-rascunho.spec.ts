@@ -1,4 +1,4 @@
-import { distinct, groupBy, filter, compose, fold, orderBy } from './utils';
+import { distinct, groupBy, filter, compose, fold, orderBy } from './utils-rascunho';
 
 type User = {
     name: string,
@@ -16,7 +16,7 @@ describe('Testing utils functions', () => {
                 { "name": "Idk", "id": 4 }
             ];
 
-            const result = distinct('name', data);
+            const result = distinct ('name') (data);
 
             expect(result).toEqual(jasmine.arrayContaining([
                 { name: 'Idk', id: 4 },
@@ -27,13 +27,13 @@ describe('Testing utils functions', () => {
 
         it('distinct with empty list', () => {
             const data: User[] = [];
-            const result = distinct('name', data);
+            const result = distinct('name')(data);
             expect(result).toEqual([]);
         });
 
         it('distinct with list with just one value', () => {
             const data = ["1"];
-            const result = distinct('toString', data);
+            const result = distinct('toString')(data);
             expect(result).toEqual(["1"]);
         });
 
@@ -48,7 +48,7 @@ describe('Testing utils functions', () => {
                 { "name": "Idk", "id": 4 }
             ];
 
-            const result = groupBy('name' as keyof User, data);
+            const result = groupBy('name' as keyof User)(data);
 
             expect(result).toEqual({
                 "Alfredo": jasmine.arrayContaining([{ "name": "Alfredo", "id": 1 }, { "name": "Alfredo", "id": 3 }]),
@@ -59,13 +59,13 @@ describe('Testing utils functions', () => {
 
         it('groupBy with empty list', () => {
             const data: any[] = [];
-            const result = groupBy('name', data);
+            const result = groupBy('name')(data);
             expect(result).toEqual({});
         });
 
         it('groupBy with list with just one value', () => {
             const data = [{ id: 1 }];
-            const result = groupBy('id', data);
+            const result = groupBy('id')(data);
             expect(result).toEqual({ 1: [ { id: 1} ] });
         });
     });
@@ -79,7 +79,7 @@ describe('Testing utils functions', () => {
                 { "name": "Idk", "id": 4 }
             ];
 
-            const result: User[] = filter((user: User) => user.name === 'Alfredo', data);
+            const result: User[] = filter((user: User) => user.name === 'Alfredo')(data);
 
             expect(result).toEqual(jasmine.arrayContaining([
                 { "name": "Alfredo", "id": 1 },
@@ -89,7 +89,7 @@ describe('Testing utils functions', () => {
 
         it('filter with empty list', () => {
             const data: User[] = [];
-            const result = filter((user: User) => user.name === 'IDK', data);
+            const result = filter((user: User) => user.name === 'IDK')(data);
             expect(result).toEqual([]);
         });
     });
@@ -97,7 +97,7 @@ describe('Testing utils functions', () => {
     describe('fold', () => {
         it('should list all numbers in list', () => {    
             const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-            const sumResult: number = fold ((acc: number, value: number) => acc + value, 0, list);
+            const sumResult: number = fold ((acc: number, value: number) => acc + value) (0) (list);
             expect(sumResult).toEqual(55);
         });
     });
@@ -113,9 +113,7 @@ describe('Testing utils functions', () => {
 
                 return lista;
             }; 
-
-            console.log('aq');
-            const sum: (list: number[]) => number = fold((acc: number, value: number) => acc + value, 0);
+            const sum = fold((acc: number, value: number) => acc + value)(0);
 
             const somaNumerosAte = compose(sum, generateList);
             const result: number = somaNumerosAte(10);
@@ -133,7 +131,7 @@ describe('Testing utils functions', () => {
                 { "name": "José", "id": 2 },
             ];
 
-            const result: User[] = orderBy('id' as keyof User, data);
+            const result: User[] = orderBy('id' as keyof User)(data);
 
             expect(result).toEqual([
                 { "name": "Alfredo", "id": 1 },
@@ -151,7 +149,7 @@ describe('Testing utils functions', () => {
                 { "name": "José", "id": 2 },
             ];
 
-            const result: User[] = orderBy('name' as keyof User, data);
+            const result: User[] = orderBy('name' as keyof User)(data);
 
             expect(result).toEqual([
                 { "name": "Alfredo", "id": 1 },
