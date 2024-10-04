@@ -20,7 +20,7 @@ describe('Testing utils functions', () => {
 
             expect(result).toEqual(jasmine.arrayContaining([
                 { name: 'Idk', id: 4 },
-                { name: 'Alfredo', id: 3 },
+                { name: 'Alfredo', id: 1 },
                 { name: 'José', id: 2 }
             ]));
         });
@@ -37,7 +37,7 @@ describe('Testing utils functions', () => {
 
             expect(result).toEqual(jasmine.arrayContaining([
                 { name: 'Idk', id: 4 },
-                { name: 'Alfredo', id: 3 },
+                { name: 'Alfredo', id: 1 },
                 { name: 'José', id: 2 }
             ]));
         });

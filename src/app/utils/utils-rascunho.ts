@@ -21,7 +21,7 @@ export function groupBy <T> (attribute: keyof T) : (list: T[]) => { [key: string
         const key = String(x[attribute]);
         const group : T[] = nextValuesGroupBy[key] ?? [];
 
-        return { ...nextValuesGroupBy, [key]: [...group, x] };
+        return { ...nextValuesGroupBy, [key]: [x, ...group] };
     };
 }
 
